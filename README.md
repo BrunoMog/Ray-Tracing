@@ -1,6 +1,6 @@
 # PG-Ray-Tracing
 
-Repositório base em C++ para o projeto da disciplina de Processamento Gráfico.
+Repositório base para o projeto da disciplina de Processamento Gráfico.
 
 ## Entregas
 
