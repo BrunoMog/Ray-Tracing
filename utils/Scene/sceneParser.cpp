@@ -1,4 +1,4 @@
-#pragma once
+    #pragma once
 
 #include <cctype>
 #include <cstdint>
@@ -18,12 +18,12 @@
 
 class SceneJsonLoader {
 public:
-    static Scene loadFile(const std::string& filename) {
+    static SceneData loadFile(const std::string& filename) {
         Json root = parser.parseFile(filename);
         return build(root);
     }
 
-    static Scene loadString(const std::string& text) {
+    static SceneData loadString(const std::string& text) {
         Json root = parser.parseString(text);
         return build(root);
     }
@@ -31,8 +31,8 @@ public:
 private:
     static JsonParser parser;
 
-    static Scene makeEmptyScene() {
-        Scene scene;
+    static SceneData makeEmptySceneData() {
+        SceneData scene;
 
         scene.camera.lookfrom = Ponto(0, 0, 0);
         scene.camera.lookat   = Ponto(0, 0, -1);
@@ -284,12 +284,12 @@ private:
         return obj;
     }
 
-    static Scene build(const Json& root) {
+    static SceneData build(const Json& root) {
         if (!root.isObject()) {
             throw std::runtime_error("Root JSON value must be an object");
         }
 
-        Scene scene = makeEmptyScene();
+        SceneData scene = makeEmptySceneData();
         std::map<std::string, MaterialData> materials;
 
         // globalLight

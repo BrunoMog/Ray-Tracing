@@ -12,9 +12,10 @@ class Ponto:
 
     # Ponto - Ponto → Vetor
     def __sub__(self, other):
+        from src.Vetor import Vetor
         return Vetor(self.x - other.x,
-                      self.y - other.y,
-                      self.z - other.z)
+                     self.y - other.y,
+                     self.z - other.z)
 
     def __str__(self):
         return f"({self.x}, {self.y}, {self.z})"

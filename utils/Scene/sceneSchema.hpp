@@ -73,7 +73,7 @@ struct ObjectData {
 };
 
 
-struct Scene {
+struct SceneData {
     CameraData camera;
     
     LightData globalLight;
@@ -90,7 +90,7 @@ struct Scene {
    Output format  - Ignore this
 --------------------------------------------------- */
 
-int IdentSpacing = 0;
+inline int IdentSpacing = 0;
 static void indent(ostream& os){ for (int i = 0; i < IdentSpacing; i++) os << "    "; }
 static void printAsArray(ostream& os, Vetor v) { os << "[" << v.getX() << ", " << v.getY() << ", " << v.getZ() << "]"; }
 static void printAsArray(ostream& os, Ponto v) { os << "[" << v.getX() << ", " << v.getY() << ", " << v.getZ() << "]"; }
@@ -203,7 +203,7 @@ ostream& operator<<(ostream& os, const CameraData& c) {
 }
 
 
-ostream& operator<<(ostream& os, const Scene& s) {
+ostream& operator<<(ostream& os, const SceneData& s) {
     indent(os); os << "{\n"; IdentSpacing++;
 
     indent(os); os << "\"camera\": " << s.camera << ",\n";

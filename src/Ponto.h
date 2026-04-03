@@ -22,7 +22,7 @@ public:
 
     double getX() const { return x; }
     double getY() const { return y; }
-    double getZ() const { return z; }   
+    double getZ() const { return z; }
 
 private:
     double x, y, z;

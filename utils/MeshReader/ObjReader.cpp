@@ -52,7 +52,7 @@ private:
     string Filename;
 
 public:
-    objReader(std::string filename) : cmap(cmap) {
+    objReader(std::string filename) {
         Filename = filename;
         // Abre o arquivo
         file.open(filename);
@@ -84,24 +84,16 @@ public:
                 iss >> x >> y >> z;
                 normals.emplace_back(x, y, z);
             } else if (prefix == "f") {
+                // Suporta formatos v/vt/vn e v//vn
                 FaceData face;
-                char slash;
+                face.material = curMaterial;
                 for (int i = 0; i < 3; ++i) {
-                    int _;
-                    iss >> face.verticeIndice[i] >> slash;
-                    iss >> slash;  // cuiadado com o caso 1//1  em que o número do meio está faltando
-                    while(slash != '/') iss >> slash;
-                    iss >> face.normalIndice[i];
-                    face.material.ka = curMaterial.ka;
-                    face.material.kd = curMaterial.kd;
-                    face.material.ks = curMaterial.ks;
-                    face.material.ke = curMaterial.ke;
-                    face.material.ns = curMaterial.ns;
-                    face.material.ni = curMaterial.ni;
-                    face.material.d  = curMaterial.d;
-                    
-                    face.verticeIndice[i]--;
-                    face.normalIndice[i]--;
+                    std::string token;
+                    iss >> token;
+                    size_t first  = token.find('/');
+                    size_t second = token.find('/', first + 1);
+                    face.verticeIndice[i] = std::stoi(token.substr(0, first)) - 1;
+                    face.normalIndice[i]  = std::stoi(token.substr(second + 1)) - 1;
                 }
                 faces.push_back(face);
             }
