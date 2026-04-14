@@ -1,0 +1,76 @@
+{
+  "globalLight": [0.1, 0.1, 0.1],
+  "camera": {
+    "lookfrom": [0, 1.0, 3.2],
+    "lookat": [0, 0.2, -2.5],
+    "upVector": [0, 1, 0],
+    "image_width": 800,
+    "image_height": 600,
+    "screen_distance": 1.0
+  },
+  "objects": [
+    {
+      "name": "floor",
+      "type": "plane",
+      "point_on_plane": [0, -0.8, 0],
+      "normal": [0, 1, 0],
+      "material": {
+        "color": [0.75, 0.75, 0.72]
+      }
+    },
+    {
+      "name": "ceiling",
+      "type": "plane",
+      "point_on_plane": [0, 2.2, 0],
+      "normal": [0, -1, 0],
+      "material": {
+        "color": [0.9, 0.9, 0.95]
+      }
+    },
+    {
+      "name": "back_wall",
+      "type": "plane",
+      "point_on_plane": [0, 0, -8],
+      "normal": [0, 0, 1],
+      "material": {
+        "color": [0.82, 0.84, 0.9]
+      }
+    },
+    {
+      "name": "left_wall",
+      "type": "plane",
+      "point_on_plane": [-2.5, 0, 0],
+      "normal": [1, 0, 0],
+      "material": {
+        "color": [0.85, 0.3, 0.3]
+      }
+    },
+    {
+      "name": "right_wall",
+      "type": "plane",
+      "point_on_plane": [2.5, 0, 0],
+      "normal": [-1, 0, 0],
+      "material": {
+        "color": [0.3, 0.75, 0.35]
+      }
+    },
+    {
+      "name": "sphere_a",
+      "type": "sphere",
+      "center": [-0.8, -0.1, -3.0],
+      "radius": 0.7,
+      "material": {
+        "color": [0.2, 0.45, 0.9]
+      }
+    },
+    {
+      "name": "sphere_b",
+      "type": "sphere",
+      "center": [0.8, -0.35, -4.0],
+      "radius": 0.45,
+      "material": {
+        "color": [0.9, 0.65, 0.15]
+      }
+    }
+  ]
+}

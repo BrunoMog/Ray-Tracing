@@ -68,7 +68,7 @@ Camera buildCamera(const CameraData& cameraData) {
 } // namespace
 
 int main() {
-    const std::string scenePath = "utils/input/sampleScene.json";
+    const std::string scenePath = "utils/input/delivery1_simple_sphere.json";
     SceneData sceneData = SceneJsonLoader::loadFile(scenePath);
 
     Camera camera = buildCamera(sceneData.camera);

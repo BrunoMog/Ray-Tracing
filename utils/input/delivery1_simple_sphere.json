@@ -1,0 +1,22 @@
+{
+  "globalLight": [0.0, 0.0, 0.0],
+  "camera": {
+    "lookfrom": [0, 0, 2],
+    "lookat": [0, 0, -3],
+    "upVector": [0, 1, 0],
+    "image_width": 3840,
+    "image_height": 2160,
+    "screen_distance": 2.0
+  },
+  "objects": [
+    {
+      "name": "sphere_green",
+      "type": "sphere",
+      "center": [0.0, 0.0, -8.2],
+      "radius": 0.8,
+      "material": {
+        "color": [0, 1, 0]
+      }
+    }
+  ]
+}
