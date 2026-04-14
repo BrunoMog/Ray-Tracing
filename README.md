@@ -8,14 +8,25 @@ Repositório base para o projeto da disciplina de Processamento Gráfico.
 
 ```text
 PG-Ray-Tracing/
-├── main.cpp / main.py          ← ponto de entrada (seu código vai aqui)
-├── entrega1.py                 ← exemplo funcional da entrega 1 (referência)
-│
+├── main.cpp                    ← ponto de entrada C++
 ├── src/
-│   ├── Ponto.h / Ponto.py      ← classe Ponto (template — expanda)
-│   └── Vetor.h / Vetor.py      ← classe Vetor (template — expanda)
-│
-└── utils/                      ← infraestrutura pronta (não precisa mexer)
+│   ├── Camera.h                ← câmera e geração de raio por pixel
+│   ├── Cena.h                  ← cena e busca da interseção mais próxima
+│   ├── algebric_objects/
+│   │   ├── Ponto.h
+│   │   ├── Vetor.h
+│   │   └── Reta.h
+│   ├── objects/
+│   │   ├── Objeto.h            ← interface base + HitRecord
+│   │   ├── Esfera.h            ← interseção raio-esfera
+│   │   └── Plano.h             ← interseção raio-plano
+│   ├── builders/
+│   │   ├── SceneBuilder.h
+│   │   └── SceneBuilder.cpp    ← SceneData -> Camera/Cena/Objeto
+│   └── utils/
+│       └── Cor.h
+├── samples/                    ← exemplos de saída em .ppm
+└── utils/                      ← infraestrutura de parser/leitores e cenas
     ├── input/                  ← cenas de exemplo (.json) e malhas (.obj)
     │   ├── sampleScene.json    ← Cornell box com esferas
     │   ├── mirrorScene.json    ← cena com transformações
@@ -192,11 +203,16 @@ python utils/convert_ppm.py imagem.ppm imagem.png
 | Leitor de malhas (.obj) | **Pronto** | `utils/MeshReader/ObjReader` |
 | Leitor de materiais (.mtl) | **Pronto** | `utils/MeshReader/Colormap` |
 | Cenas de exemplo | **Prontas** | `utils/input/` |
-| Classe `Ponto` (base) | Template | `src/Ponto` |
-| Classe `Vetor` (base) | Template | `src/Vetor` |
-| Câmera | **Você implementa** | `main` ou `src/` |
-| Interseção raio-esfera | **Você implementa** | `main` ou `src/` |
-| Interseção raio-plano | **Você implementa** | `main` ou `src/` |
+| Classe `Ponto` | **Pronto** | `src/algebric_objects/Ponto.h` |
+| Classe `Vetor` | **Pronto** | `src/algebric_objects/Vetor.h` |
+| Classe `Reta` | **Pronto** | `src/algebric_objects/Reta.h` |
+| Estrutura de cor (`Cor`) | **Pronto** | `src/utils/Cor.h` |
+| Câmera (base U, V, W + raios por pixel) | **Pronto** | `src/Camera.h` |
+| Estrutura da cena + hit mais próximo | **Pronto** | `src/Cena.h` |
+| Objeto base + `HitRecord` | **Pronto** | `src/objects/Objeto.h` |
+| Interseção raio-esfera | **Pronto** | `src/objects/Esfera.h` |
+| Interseção raio-plano | **Pronto** | `src/objects/Plano.h` |
+| Construção de câmera/cena a partir do JSON | **Pronto** | `src/builders/SceneBuilder.*` |
 | Interseção raio-triângulo | **Você implementa** | `main` ou `src/` |
 | Transformações afins | **Você implementa** | `main` ou `src/` |
 | Iluminação de Phong | **Você implementa** | `main` ou `src/` |
