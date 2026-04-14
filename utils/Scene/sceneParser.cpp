@@ -10,8 +10,8 @@
 #include <string>
 #include <vector>
 
-#include "../../src/Vetor.h"
-#include "../../src/Ponto.h"
+#include "../../src/algebric_objects/Vetor.h"
+#include "../../src/algebric_objects/Ponto.h"
 #include "sceneSchema.hpp"
 #include "jsonParser.cpp"
 

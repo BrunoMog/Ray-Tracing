@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../../src/Vetor.h"
-#include "../../src/Ponto.h"
+#include "../../src/algebric_objects/Vetor.h"
+#include "../../src/algebric_objects/Ponto.h"
 #include <string>
 #include <vector>
 #include <map>
