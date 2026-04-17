@@ -1,8 +1,10 @@
 #ifndef CAMERAHEADER
 #define CAMERAHEADER
 
+#include <iostream>
 #include "../algebric_objects/Vetor.h"
 #include "../algebric_objects/Ponto.h"
+#include "../algebric_objects/Reta.h"
 
 class Camera {
 public:
@@ -48,9 +50,26 @@ public:
         return resultado +vetor_pixel_horizontal * 0.5 + vetor_pixel_vertical * 0.5;
     }
 
+    Reta gerarRaioPixel(double x, double y) const {
+        //Gera um raio a partir da posição da câmera em direção ao pixel (x, y).
+        Vetor direcaoPixel = calcularPosicaoPixel(x, y);
+        return Reta(lookfrom, direcaoPixel);
+    }
+
     Ponto getLookfrom() const {
         return lookfrom;
     }
+
+    // Getters para câmera
+    Ponto getLookat() const { return lookat; }
+    Ponto getLookFrom() const { return lookfrom; }
+    Vetor getW() const { return W; }
+    Vetor getU() const { return U; }
+    Vetor getV() const { return V; }
+    Vetor getUp() const { return vetor_up; }
+    double getScreenDistance() const { return screen_distance; }
+    double getImageWidth() const { return img_width; }
+    double getImageHeight() const { return img_height; }
 
 private:
     Ponto lookfrom;

@@ -9,8 +9,11 @@
 
 class Renderer {
 public:
-	Renderer(const Camera& camera, const Cena& cena, int largura, int altura)
-		: camera(camera), cena(cena), largura(largura), altura(altura) {}
+	Renderer(const Camera& camera, const Cena& cena)
+		: camera(camera), cena(cena) {
+			altura = camera.getImageHeight();
+			largura = camera.getImageWidth();
+		}
 
 	void renderPPM(std::ostream& out) const {
 		out << "P3\n";
@@ -19,8 +22,7 @@ public:
 
 		for (int j = 0; j < altura; ++j) {
 			for (int i = 0; i < largura; ++i) {
-				Vetor direcaoPixel = camera.calcularPosicaoPixel(i, j);
-				Reta raio(camera.getLookfrom(), direcaoPixel);
+				Reta raio = camera.gerarRaioPixel(i, j);
 
 				HitRecord hit;
 				Cor corPixel = Cor::preto();

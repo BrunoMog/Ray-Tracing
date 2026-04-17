@@ -5,17 +5,18 @@
 #include "utils/Scene/sceneParser.cpp"
 #include "src/builders/SceneBuilder.cpp"
 
-int main() {
-    const std::string scenePath = "utils/input/delivery1_floor_spheres.json";
+int main(int argc, char* argv[]) {
+    std::string scenePath = "utils/input/delivery1_floor_spheres.json";
+    if (argc > 1) {
+        scenePath = argv[1];
+    }
+
     SceneData sceneData = SceneJsonLoader::loadFile(scenePath);
 
     Camera camera = SceneBuilder::buildCamera(sceneData.camera);
     Cena cena = SceneBuilder::buildScene(sceneData);
 
-    const int largura = sceneData.camera.image_width;
-    const int altura = sceneData.camera.image_height;
-
-    Renderer renderer(camera, cena, largura, altura);
+    Renderer renderer(camera, cena);
     renderer.renderPPM(std::cout);
 
     return 0;
