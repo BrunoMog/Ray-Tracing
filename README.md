@@ -54,7 +54,7 @@ python main.py
 
 ```bash
 # Compile e rode a partir da raiz do repositório
-g++ -std=c++17 main.cpp -o raytracer && ./raytracer
+./exec_main.sh
 ```
 
 > **Requisito:** compilador com suporte a C++17 (`g++ 8+` ou `clang++ 7+`).
@@ -110,7 +110,7 @@ print(scene.global_light.color)     # ColorData — luz ambiente
 **C++:**
 
 ```cpp
-#include "utils/Scene/sceneParser.cpp"
+#include "utils/Scene/sceneParser.hpp"
 
 SceneData scene = SceneJsonLoader::loadFile("utils/input/sampleScene.json");
 
@@ -157,7 +157,7 @@ mesh.get_faces()         # list[FaceData]  — índices + material por face
 **C++:**
 
 ```cpp
-#include "utils/MeshReader/ObjReader.cpp"
+#include "utils/MeshReader/ObjReader.hpp"
 
 objReader mesh("utils/input/cubo.obj");
 

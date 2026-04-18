@@ -10,8 +10,8 @@
 namespace SceneBuilder {
 
 Cor toCor(const ColorData& colorData);
-std::unique_ptr<Objeto> buildObject(const ObjectData& objectData);
-Cena buildScene(const SceneData& sceneData);
+std::unique_ptr<Objeto> buildObject(const ObjectData& objectData, bool aplicarTransformacoes = true);
+Cena buildScene(const SceneData& sceneData, bool aplicarTransformacoes = true);
 Camera buildCamera(const CameraData& cameraData);
 
 } // namespace SceneBuilder
