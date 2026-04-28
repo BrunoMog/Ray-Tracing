@@ -4,6 +4,7 @@
 #include "../algebric_objects/Reta.h"
 #include "../algebric_objects/Ponto.h"
 #include "../algebric_objects/Vetor.h"
+#include "../algebric_objects/Matriz.h"
 #include "../utils/Cor.h"
 
 struct HitRecord {
@@ -17,6 +18,7 @@ class Objeto {
 public:
     virtual ~Objeto() = default;
     virtual bool intersectar(const Reta& raio, double tMin, double tMax, HitRecord& hit) const = 0;
+    virtual void aplicarTransformacao(const Matriz& transformacao) = 0;
 };
 
 #endif

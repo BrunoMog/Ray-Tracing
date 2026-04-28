@@ -5,6 +5,8 @@
 #include <cmath>
 #include <ostream>
 
+#include "../algebric_objects/Vetor.h"
+
 class Cor {
 public:
     Cor() : r(0.0), g(0.0), b(0.0) {}
@@ -19,11 +21,16 @@ public:
     Cor operator+(const Cor& c) const {
         return Cor(r + c.r, g + c.g, b + c.b);
     }
-
     Cor operator*(double s) const {
         return Cor(r * s, g * s, b * s);
     }
-
+    double operator*(Vetor s) const {
+        return r * s.getX() + g * s.getY() + b * s.getZ();
+    }
+    double operator*(Cor s) const {
+        return r * s.R() + g * s.G() + b * s.B();
+    }
+    
     int R255() const { return to255(r); }
     int G255() const { return to255(g); }
     int B255() const { return to255(b); }

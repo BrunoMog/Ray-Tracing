@@ -1,4 +1,4 @@
-#include "sceneParser.cpp"
+#include "sceneParser.hpp"
 #include <iostream>
 using namespace std;
 
