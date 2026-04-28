@@ -183,7 +183,7 @@ std::unique_ptr<Objeto> buildObject(const ObjectData& objectData, bool aplicarTr
 }
 
 Cena buildScene(const SceneData& sceneData, bool aplicarTransformacoes) {
-    Cena cena(toCor(sceneData.globalLight.color));
+    Cena cena(Cor(0.0, 0.0, 0.0));
 
     for (const auto& objectData : sceneData.objects) {
         std::unique_ptr<Objeto> objeto = buildObject(objectData, aplicarTransformacoes);
