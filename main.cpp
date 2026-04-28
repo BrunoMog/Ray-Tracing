@@ -32,12 +32,12 @@ int main(int argc, char* argv[]) {
 
         Renderer renderer(camera, cenaAntes, &cenaDepois);
         renderer.renderPPMTransformacao(beforeOut, afterOut);
-        return 0;
     }
-
-    Cena cena = SceneBuilder::buildScene(sceneData, true);
-    Renderer renderer(camera, cena);
-    renderer.renderPPM(std::cout);
+    else{
+        Cena cena = SceneBuilder::buildScene(sceneData, true);
+        Renderer renderer(camera, cena);
+        renderer.renderPPM(std::cout);
+    }
 
     return 0;
 }

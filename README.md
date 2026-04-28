@@ -9,34 +9,35 @@ Repositório base para o projeto da disciplina de Processamento Gráfico.
 ```text
 PG-Ray-Tracing/
 ├── main.cpp                    ← ponto de entrada C++
-├── src/
-│   ├── Camera.h                ← câmera e geração de raio por pixel
-│   ├── Cena.h                  ← cena e busca da interseção mais próxima
-│   ├── algebric_objects/
+├── exec.sh                     ← script de build/execução e modos (inclui --transform)
+├── README.md
+├── samples/                    ← exemplos e imagens geradas (PPM/PNG)
+├── src/                        ← código-fonte C++
+│   ├── Renderer.h/.cpp         ← renderer principal (render, render antes/depois)
+│   ├── algebric_objects/       ← matrizes, pontos, vetores
+│   │   ├── Matriz.h
 │   │   ├── Ponto.h
-│   │   ├── Vetor.h
-│   │   └── Reta.h
-│   ├── objects/
-│   │   ├── Objeto.h            ← interface base + HitRecord
-│   │   ├── Esfera.h            ← interseção raio-esfera
-│   │   └── Plano.h             ← interseção raio-plano
-│   ├── builders/
+│   │   └── Vetor.h
+│   ├── objects/                ← implementações de objetos e malhas
+│   │   ├── Objeto.h
+│   │   ├── Esfera.h/.cpp
+│   │   ├── Plano.h/.cpp
+│   │   ├── Triangulo.h/.cpp
+│   │   └── MalhaTriangulos.h/.cpp
+│   ├── builders/               ← construção de cena a partir de SceneData
 │   │   ├── SceneBuilder.h
-│   │   └── SceneBuilder.cpp    ← SceneData -> Camera/Cena/Objeto
-│   └── utils/
+│   │   └── SceneBuilder.cpp
+│   └── utils/                  ← helpers da versão C++ (Camera, Cena, Cor)
+│       ├── Camera.h/.cpp
+│       ├── Cena.h/.cpp
 │       └── Cor.h
-├── samples/                    ← exemplos de saída em .ppm
-└── utils/                      ← infraestrutura de parser/leitores e cenas
-    ├── input/                  ← cenas de exemplo (.json) e malhas (.obj)
-    │   ├── sampleScene.json    ← Cornell box com esferas
-    │   ├── mirrorScene.json    ← cena com transformações
-    │   └── monkeyScene.json    ← cena com malha complexa
-    ├── Scene/
-    │   ├── sceneSchema.py/.hpp ← tipos de dados da cena (SceneData, etc.)
-    │   └── sceneParser.py/.cpp ← carrega um .json → SceneData
-    └── MeshReader/
-        ├── Colormap.py/.cpp    ← lê arquivos .mtl
-        └── ObjReader.py/.cpp   ← lê arquivos .obj
+└── utils/                      ← ferramentas de parsing, leitores e cenas (Python/C++)
+    ├── convert_ppm.py          ← utilitário para converter PPM → PNG
+    ├── input/                  ← cenas de exemplo (.json) e materiais (.mtl/.obj)
+    │   ├── delivery1_*.json
+    │   └── example_with_transforms.json
+    ├── Scene/                  ← parser/serialização de cenas (C++/Python)
+    └── MeshReader/             ← leitores de OBJ/MTL (C++/Python)
 ```
 
 ---
@@ -50,11 +51,11 @@ PG-Ray-Tracing/
 python main.py
 ```
 
-### C++
+### C++:
 
 ```bash
 # Compile e rode a partir da raiz do repositório
-./exec_main.sh
+./exec.sh
 ```
 
 > **Requisito:** compilador com suporte a C++17 (`g++ 8+` ou `clang++ 7+`).
@@ -193,6 +194,21 @@ Para converter para PNG:
 python utils/convert_ppm.py imagem.ppm imagem.png
 ```
 
+Render antes/depois de transformações afins:
+
+O projeto implementa suporte a transformações afins por objeto (lista de transformações em cada objeto do JSON). Para gerar duas imagens — antes e depois de aplicar as transformações — use a flag `--transform` do script `exec.sh`:
+
+```bash
+# Exemplo: gera PPMs antes/depois e os converte para PNG
+./exec.sh --transform utils/input/delivery1_room_simple_transform.json samples/before.ppm samples/after.ppm samples/before.png samples/after.png
+```
+
+Detalhes importantes:
+- As transformações são lidas do campo `transforms` de cada objeto no JSON e aplicadas na fase de construção da cena (`src/builders/SceneBuilder.*`).
+- A cena "antes" é construída apenas com as posições relativas (`relative_pos`) e sem aplicar as transformações adicionais, garantindo que o arquivo base JSON gere a imagem "antes" igual ao original.
+- A cena "depois" é construída aplicando as transformações em ordem (a ordem no JSON importa).
+- A conversão PPM→PNG é feita por `utils/convert_ppm.py`.
+
 ---
 
 ## O que está pronto vs. o que você implementa
@@ -214,7 +230,7 @@ python utils/convert_ppm.py imagem.ppm imagem.png
 | Interseção raio-plano | **Pronto** | `src/objects/Plano.h` |
 | Construção de câmera/cena a partir do JSON | **Pronto** | `src/builders/SceneBuilder.*` |
 | Interseção raio-triângulo | **Você implementa** | `main` ou `src/` |
-| Transformações afins | **Você implementa** | `main` ou `src/` |
+| Transformações afins | **Pronto** | `src/builders/SceneBuilder.*`, `src/algebric_objects/Matriz.h`, `src/objects/*`, `src/Renderer.*` |
 | Iluminação de Phong | **Você implementa** | `main` ou `src/` |
 | Reflexão e refração | **Você implementa** | `main` ou `src/` |
 
